@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../models/user.dart';
+import '../../models/login_user.dart';
 
 abstract class SignInModel {
-  User? currentUser;
+  LoginUser? currentUser;
   TextEditingController usernameController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
 

@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:universe_store/app/models/user.dart';
+import 'package:universe_store/app/models/login_user.dart';
 
 import 'sign_in_state.dart';
 
@@ -9,7 +9,7 @@ class SignInStore extends StreamStore<Exception, SignInModel> {
 
   Future signIn() async {
     setLoading(true);
-    User loginUser = User(username: state.usernameController.text, password: state.pwdController.text);
+    LoginUser loginUser = LoginUser(username: state.usernameController.text, password: state.pwdController.text);
     await Future.delayed(const Duration(milliseconds: 300));
     update(SignInSuccess(user: loginUser));
     Modular.to.pushNamedAndRemoveUntil("/root", (p0) => false);

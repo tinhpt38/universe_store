@@ -21,7 +21,7 @@ class _RootPageState extends State<RootPage> {
     const ProductsPage(),
     const AccountPage()
   ];
-  int currentIndex = 0;
+  int currentIndex = 2;
   List<TabItem> tabItems = List.of([
     TabItem(Icons.home, "Home", Colors.blue,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
@@ -32,16 +32,31 @@ class _RootPageState extends State<RootPage> {
     TabItem(Icons.store, "Cart", Colors.cyan),
     TabItem(Icons.person_pin, "Account", Colors.cyan),
   ]);
-  final CircularBottomNavigationController _navigationController =
-      CircularBottomNavigationController(0);
+  late CircularBottomNavigationController _navigationController;
+
+  @override
+  void initState() {
+    _navigationController = CircularBottomNavigationController(currentIndex);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_navigationController.value ?? 0],
-      bottomNavigationBar: CircularBottomNavigation(
-        tabItems,
-        controller: _navigationController,
-      ),
+      bottomNavigationBar: CircularBottomNavigation(tabItems,
+          controller: _navigationController,
+          selectedPos: currentIndex, selectedCallback: (int? selectedPos) {
+        setState(() {
+          currentIndex = selectedPos ?? 0;
+        });
+      }),
     );
+  }
+
+   @override
+  void dispose() {
+    super.dispose();
+    _navigationController.dispose();
   }
 }
