@@ -4,13 +4,13 @@ import 'package:flutter/services.dart';
 import '../values/colors.dart';
 
 class RoundedTextField extends StatelessWidget {
-  const RoundedTextField(
-      {super.key,
-      required this.controller,
-      this.inputType = TextInputType.text,
-      this.password = false,
-      this.hintText = '',
-      });
+  const RoundedTextField({
+    super.key,
+    required this.controller,
+    this.inputType = TextInputType.text,
+    this.password = false,
+    this.hintText = '',
+  });
   final TextEditingController controller;
   final TextInputType inputType;
   final bool password;
@@ -21,7 +21,7 @@ class RoundedTextField extends StatelessWidget {
     return TextFormField(
       keyboardType: inputType,
       obscureText: password,
-    
+      controller: controller,
       style: const TextStyle(fontSize: 18),
       decoration: InputDecoration(
           fillColor: AppColors.foreground,

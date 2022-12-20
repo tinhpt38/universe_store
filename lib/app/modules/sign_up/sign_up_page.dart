@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:universe_store/app/components/rounded_button.dart';
 import 'package:universe_store/app/components/rounded_text_field.dart';
 import 'package:universe_store/app/modules/sign_in/sign_in_store.dart';
+import 'package:universe_store/app/modules/sign_up/sign_up_state.dart';
+import 'package:universe_store/app/modules/sign_up/sign_up_store.dart';
 import 'package:universe_store/app/values/colors.dart';
 
-import 'sign_in_state.dart';
-
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
-  final store = SignInStore();
+class _SignUpPageState extends State<SignUpPage> {
+  final store = SignupStore();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: ScopedBuilder<SignInStore, Exception, SignInModel>(
+      body: ScopedBuilder<SignupStore, Exception, SignupState>(
         store: store,
         onState: (context, state) {
           return Container(
@@ -35,26 +34,47 @@ class _SignInPageState extends State<SignInPage> {
                   const SizedBox(
                     height: 100,
                   ),
-                  Text(
-                    'Welcome Back!',
-                    style:
-                        TextStyle(fontSize: 20, color: AppColors.secondaryText),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Text(
-                      'Please sign in to your \naccount',
+                      'Create new  Account!',
                       style: TextStyle(
                           fontSize: 24,
                           color: AppColors.primaryText,
                           fontWeight: FontWeight.w500),
                     ),
                   ),
+                  Text(
+                    'Please fill in the form to continue',
+                    style:
+                        TextStyle(fontSize: 14, color: AppColors.secondaryText),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 42, bottom: 8),
                     child: RoundedTextField(
-                      controller: state.usernameController,
-                      hintText: 'Username',
+                      controller: state.fnController,
+                      hintText: 'First name',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: RoundedTextField(
+                      controller: state.lnController,
+                      hintText: 'Last name',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: RoundedTextField(
+                      controller: state.emailController,
+                      hintText: 'Email Address',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: RoundedTextField(
+                      controller: state.pwdController,
+                      hintText: 'Password',
                     ),
                   ),
                   Padding(
@@ -62,37 +82,29 @@ class _SignInPageState extends State<SignInPage> {
                     child: RoundedTextField(
                       controller: state.pwdController,
                       password: true,
-                      hintText: 'Password',
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: store.forgetPassword,
-                    child: Text(
-                      'Forget Password?',
-                      style: TextStyle(color: AppColors.primaryText),
+                      hintText: 'Confirm Password',
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child:
-                        RoundedButton(onPress: store.signIn, label: 'Sign In'),
+                        RoundedButton(onPress: store.signUp, label: 'Sign Up'),
                   ),
                   // Padding(
                   //   padding: const EdgeInsets.symmetric(vertical: 8),
                   //   child: RoundedButton(
-                  //       onPress: store.signInWithGoogle,
-                  //       label: 'Sign In with Google'),
+                  //       onPress: () {}, label: 'Sign In with Google'),
                   // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Text('Don\'t have an account?'),
+                      const Text('You already have an account?'),
                       TextButton(
                         onPressed: () {
-                          Modular.to.pushNamed("/signup");
+                          Navigator.pop(context);
                         },
                         child: Text(
-                          'Sign Up',
+                          'Sign in',
                           style: TextStyle(color: AppColors.primaryButton),
                         ),
                       ),

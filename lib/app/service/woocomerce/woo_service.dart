@@ -1,4 +1,6 @@
 import 'package:universe_store/app/models/product.dart';
+import 'package:universe_store/app/models/sign_up.dart';
+import 'package:universe_store/app/models/user.dart';
 import 'package:universe_store/woo.dart';
 import 'package:woocommerce_api/woocommerce_api.dart';
 
@@ -16,10 +18,30 @@ class WooService {
     return products;
   }
 
-    Future<List<Categories>> retrieveProductCategories() async {
+  Future<List<Categories>> retrieveProductCategories() async {
     List<dynamic> records = await _api.getAsync("products/categories");
     List<Categories> categories =
         records.map((e) => Categories.fromJson(e)).toList();
     return categories;
+  }
+
+  Future<User?> createCustomer(
+      SignUp signUp, Function(Map<String, dynamic>) onError) async {
+    var response = await _api.postAsync("customers", signUp.toJson());
+    if (response["code"] != null) {
+      onError(response);
+      return null;
+    }
+    return User.fromJson(response);
+  }
+
+  Future<User?> retrieveCustomer(int id,
+      {Function(Map<String, dynamic>)? onError}) async {
+    var response = await _api.getAsync("customers/$id");
+    if (response["code"] != null) {
+      onError!(response);
+      return null;
+    }
+    return User.fromJson(response);
   }
 }

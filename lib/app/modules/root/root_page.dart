@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:universe_store/app/modules/account/account_page.dart';
+import 'package:universe_store/app/modules/cart/cart_page.dart';
 import 'package:universe_store/app/modules/products/product_page.dart';
 import 'package:universe_store/app/modules/whislist/whislist_page.dart';
+import 'package:universe_store/app/values/colors.dart';
 
 import '../home/home_page.dart';
 
@@ -19,6 +21,7 @@ class _RootPageState extends State<RootPage> {
     const HomePage(),
     const WhisListPage(),
     const ProductsPage(),
+    const CartPage(),
     const AccountPage()
   ];
   int currentIndex = 2;
@@ -45,6 +48,7 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       body: pages[_navigationController.value ?? 0],
       bottomNavigationBar: CircularBottomNavigation(tabItems,
+          barBackgroundColor: AppColors.background,
           controller: _navigationController,
           selectedPos: currentIndex, selectedCallback: (int? selectedPos) {
         setState(() {
@@ -54,7 +58,7 @@ class _RootPageState extends State<RootPage> {
     );
   }
 
-   @override
+  @override
   void dispose() {
     super.dispose();
     _navigationController.dispose();
