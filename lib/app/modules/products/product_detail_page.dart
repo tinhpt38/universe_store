@@ -1,8 +1,15 @@
+import 'package:advance_notification/advance_notification.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:provider/provider.dart';
+import 'package:universe_store/app/models/cart.dart';
 import 'package:universe_store/app/models/product.dart';
 import 'package:universe_store/app/values/colors.dart';
+
+import '../global_store.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key, required this.product});
@@ -13,15 +20,26 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   late Product _product;
+
   @override
   void initState() {
     _product = widget.product;
     super.initState();
   }
 
+  int sumQuantity(List<Cart> lists) {
+    int sum = 0;
+    for (var element in lists) {
+      sum += element.quantity;
+    }
+    return sum;
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    // GlobalStore globalStore = Modular.get<GlobalStore>();
+    // final globalStore = Provider.of<GlobalStore>(context);
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -30,6 +48,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           color: AppColors.primaryButton,
           onPressed: (() => Navigator.pop(context)),
         ),
+        actions: [
+          // Observer(
+          //   builder: (_) => Text(
+          //     '${sumQuantity(globalStore.carts)}',
+          //     style: TextStyle(color: Colors.red, fontSize: 16),
+          //   ),
+          // ),
+        ],
         title: Text(
           _product.name,
           style: TextStyle(color: AppColors.primaryText),
@@ -161,7 +187,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          GlobalStore globalStore = Modular.get<GlobalStore>();
+                          globalStore.addCart(_product.id);
+                          AdvanceSnackBar(
+                                  message: "Product added successfully",
+                                  bgColor: Colors.blueAccent)
+                              .show(context);
+                        },
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.white),

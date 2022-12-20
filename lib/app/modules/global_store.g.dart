@@ -68,11 +68,11 @@ mixin _$GlobalStore on _GlobalStore, Store {
       ActionController(name: '_GlobalStore', context: context);
 
   @override
-  dynamic addCart(Cart cart) {
+  dynamic addCart(int pid) {
     final _$actionInfo = _$_GlobalStoreActionController.startAction(
         name: '_GlobalStore.addCart');
     try {
-      return super.addCart(cart);
+      return super.addCart(pid);
     } finally {
       _$_GlobalStoreActionController.endAction(_$actionInfo);
     }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -29,13 +30,18 @@ abstract class _GlobalStore with Store {
   }
 
   @action
-  addCart(Cart cart) {
+  addCart(int pid) {
     int cartIndex = carts.indexWhere((element) {
-      return cart.pId == element.pId;
+      return pid == element.pId;
     });
     if (cartIndex > -1) {
-      carts[cartIndex].quantity += cart.quantity;
+      carts[cartIndex].quantity += 1;
     } else {
+      Cart cart = Cart(
+          pId: pid,
+          quantity: 1,
+          customerId: currentCustomer!.id,
+          createdAt: DateTime.now());
       carts.add(cart);
     }
   }
