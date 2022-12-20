@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:universe_store/app/modules/account/account_page.dart';
 import 'package:universe_store/app/modules/cart/cart_page.dart';
+import 'package:universe_store/app/modules/global_store.dart';
 import 'package:universe_store/app/modules/products/product_page.dart';
 import 'package:universe_store/app/modules/whislist/whislist_page.dart';
 import 'package:universe_store/app/values/colors.dart';
@@ -41,6 +43,9 @@ class _RootPageState extends State<RootPage> {
   void initState() {
     _navigationController = CircularBottomNavigationController(currentIndex);
     super.initState();
+    GlobalStore globalStore = Modular.get<GlobalStore>();
+    globalStore.gets();
+
   }
 
   @override

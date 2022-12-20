@@ -3,13 +3,13 @@ import 'package:universe_store/app/models/user.dart';
 
 abstract class AccountState {
   WPUser? currentUser;
-  User? currentCustomer;
+  Customer? currentCustomer;
   AccountState({this.currentUser, this.currentCustomer});
 }
 
 class AcocuntInitState extends AccountState {}
 
 class AccountDataState extends AccountState {
-  AccountDataState({WPUser? currentUser, User? currentCustomer})
+  AccountDataState({WPUser? currentUser, Customer? currentCustomer})
       : super(currentCustomer: currentCustomer, currentUser: currentUser);
 }

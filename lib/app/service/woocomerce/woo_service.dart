@@ -25,23 +25,23 @@ class WooService {
     return categories;
   }
 
-  Future<User?> createCustomer(
+  Future<Customer?> createCustomer(
       SignUp signUp, Function(Map<String, dynamic>) onError) async {
     var response = await _api.postAsync("customers", signUp.toJson());
     if (response["code"] != null) {
       onError(response);
       return null;
     }
-    return User.fromJson(response);
+    return Customer.fromJson(response);
   }
 
-  Future<User?> retrieveCustomer(int id,
+  Future<Customer?> retrieveCustomer(int id,
       {Function(Map<String, dynamic>)? onError}) async {
     var response = await _api.getAsync("customers/$id");
     if (response["code"] != null) {
       onError!(response);
       return null;
     }
-    return User.fromJson(response);
+    return Customer.fromJson(response);
   }
 }

@@ -1,5 +1,5 @@
-class User {
-  User({
+class Customer {
+  Customer({
     required this.id,
     required this.dateCreated,
     required this.dateCreatedGmt,
@@ -34,7 +34,7 @@ class User {
   late final List<dynamic> metaData;
   late final Links links;
   
-  User.fromJson(Map<String, dynamic> json){
+  Customer.fromJson(Map<String, dynamic> json){
     id = json['id'];
     dateCreated = json['date_created'];
     dateCreatedGmt = json['date_created_gmt'];

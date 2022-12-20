@@ -19,7 +19,7 @@ class SignupStore extends StreamStore<Exception, SignupState> {
         lastName: state.lnController.text,
         password: state.pwdController.text);
       Map<String, dynamic>? response;
-    User? user = await _wooService.createCustomer(signup, (error) {
+    Customer? user = await _wooService.createCustomer(signup, (error) {
       response = error;
     });
     if (user == null && response != null) {

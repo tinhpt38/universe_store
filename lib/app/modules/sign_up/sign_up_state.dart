@@ -6,7 +6,7 @@ import '../../models/user.dart';
 
 abstract class SignupState {
   SignUp? signupUser;
-  User? user;
+  Customer? user;
   TextEditingController lnController = TextEditingController();
   TextEditingController fnController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -28,7 +28,7 @@ class SignupFail extends SignupState {
 }
 
 class SignupSuccess extends SignupState {
-  SignupSuccess(User user)
+  SignupSuccess(Customer user)
       : super(
           user: user,
         );
