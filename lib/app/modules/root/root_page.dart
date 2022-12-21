@@ -32,7 +32,7 @@ class _RootPageState extends State<RootPage> {
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
     TabItem(Icons.favorite, "Whis", Colors.orange,
         labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-    TabItem(Icons.dashboard_rounded, "Products", Colors.orange,
+    TabItem(Icons.dashboard_rounded, "Exploer", Colors.orange,
         labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     TabItem(Icons.store, "Cart", Colors.cyan),
     TabItem(Icons.person_pin, "Account", Colors.cyan),

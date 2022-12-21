@@ -24,6 +24,22 @@ mixin _$GlobalStore on _GlobalStore, Store {
     });
   }
 
+  late final _$productsAtom =
+      Atom(name: '_GlobalStore.products', context: context);
+
+  @override
+  ObservableList<Product> get products {
+    _$productsAtom.reportRead();
+    return super.products;
+  }
+
+  @override
+  set products(ObservableList<Product> value) {
+    _$productsAtom.reportWrite(value, super.products, () {
+      super.products = value;
+    });
+  }
+
   late final _$currentUserAtom =
       Atom(name: '_GlobalStore.currentUser', context: context);
 
@@ -68,11 +84,11 @@ mixin _$GlobalStore on _GlobalStore, Store {
       ActionController(name: '_GlobalStore', context: context);
 
   @override
-  dynamic addCart(int pid) {
+  dynamic addCart(int pid, Product product) {
     final _$actionInfo = _$_GlobalStoreActionController.startAction(
         name: '_GlobalStore.addCart');
     try {
-      return super.addCart(pid);
+      return super.addCart(pid, product);
     } finally {
       _$_GlobalStoreActionController.endAction(_$actionInfo);
     }
@@ -115,6 +131,7 @@ mixin _$GlobalStore on _GlobalStore, Store {
   String toString() {
     return '''
 carts: ${carts},
+products: ${products},
 currentUser: ${currentUser},
 currentCustomer: ${currentCustomer}
     ''';

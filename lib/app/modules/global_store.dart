@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universe_store/app/models/cart.dart';
 import 'package:universe_store/app/models/login_user.dart';
+import 'package:universe_store/app/models/product.dart';
 import 'package:universe_store/app/models/user.dart';
 import 'package:universe_store/app/service/woocomerce/woo_service.dart';
 
@@ -16,6 +17,9 @@ class GlobalStore = _GlobalStore with _$GlobalStore;
 abstract class _GlobalStore with Store {
   @observable
   ObservableList<Cart> carts = ObservableList<Cart>();
+
+  @observable
+  ObservableList<Product> products = ObservableList<Product>();
   @observable
   WPUser? currentUser;
   @observable
@@ -30,7 +34,7 @@ abstract class _GlobalStore with Store {
   }
 
   @action
-  addCart(int pid) {
+  addCart(int pid, Product product) {
     int cartIndex = carts.indexWhere((element) {
       return pid == element.pId;
     });
@@ -41,7 +45,9 @@ abstract class _GlobalStore with Store {
           pId: pid,
           quantity: 1,
           customerId: currentCustomer!.id,
-          createdAt: DateTime.now());
+          createdAt: DateTime.now(),
+          product: product);
+
       carts.add(cart);
     }
   }

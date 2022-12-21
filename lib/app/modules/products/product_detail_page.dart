@@ -189,10 +189,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ElevatedButton(
                         onPressed: () {
                           GlobalStore globalStore = Modular.get<GlobalStore>();
-                          globalStore.addCart(_product.id);
-                          AdvanceSnackBar(
+                          globalStore.addCart(_product.id, _product);
+                          const AdvanceSnackBar(
                                   message: "Product added successfully",
-                                  bgColor: Colors.blueAccent)
+                                  bgColor: Colors.blueAccent,
+                                  duration:  Duration(microseconds: 500))
                               .show(context);
                         },
                         style: ButtonStyle(
