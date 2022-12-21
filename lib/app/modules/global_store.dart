@@ -67,7 +67,7 @@ abstract class _GlobalStore with Store {
     int cartIndex = carts.indexWhere((element) {
       return pId == element.pId;
     });
-    if (cartIndex > -1) {
+    if (cartIndex > -1 && carts[cartIndex].quantity >1) {
       carts[cartIndex].quantity -= qtyDe;
     } else {}
   }

@@ -14,6 +14,8 @@ class CartItem extends StatelessWidget {
   final Function(int) incrementQty;
   final Function(int) decrementQty;
 
+  double calSubtotal() => cart.product.price! * cart.quantity;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -48,7 +50,11 @@ class CartItem extends StatelessWidget {
                             onPressed: () {
                               removeCart(cart.pId);
                             },
-                            icon: const Icon(Icons.remove),
+                            alignment: Alignment.centerRight,
+                            icon: Icon(
+                              Icons.delete,
+                              color: AppColors.superHighlight,
+                            ),
                           ))
                     ],
                   ),
@@ -114,11 +120,21 @@ class CartItem extends StatelessWidget {
                           flex: 1)
                     ],
                   ),
-                  Row(
-                    children: const [
-                      Expanded(flex: 3, child: Text("SUBTOTAL")),
-                      Expanded(flex: 1, child: Text("120"))
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      children: [
+                        const Expanded(flex: 3, child: Text("SUBTOTAL")),
+                        Expanded(
+                            flex: 1,
+                            child: Text(
+                              "${calSubtotal()}",
+                              textAlign: TextAlign.right,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ))
+                      ],
+                    ),
                   ),
                 ],
               ),
