@@ -46,6 +46,28 @@ class _CartPageState extends State<CartPage> {
             width: double.infinity,
             child: Column(
               children: [
+                Expanded(
+                    child: ListView.builder(
+                  itemCount: state.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: AppColors.highLight,
+                        ))),
+                        child: CartItem(
+                          cart: state[index],
+                          removeCart: _store.removeCart,
+                          incrementQty: _store.incrementQty,
+                          decrementQty: _store.decrementQty,
+                        ),
+                      ),
+                    );
+                  },
+                )),
                 Container(
                   padding: const EdgeInsets.all(12),
                   margin: const EdgeInsets.symmetric(horizontal: 12),
@@ -76,28 +98,6 @@ class _CartPageState extends State<CartPage> {
                     ],
                   ),
                 ),
-                Expanded(
-                    child: ListView.builder(
-                  itemCount: state.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                          color: AppColors.highLight,
-                        ))),
-                        child: CartItem(
-                          cart: state[index],
-                          removeCart: _store.removeCart,
-                          incrementQty: _store.incrementQty,
-                          decrementQty: _store.decrementQty,
-                        ),
-                      ),
-                    );
-                  },
-                )),
               ],
             ),
           );

@@ -150,9 +150,9 @@ class Product {
     description = json['description'];
     shortDescription = json['short_description'];
     sku = json['sku'];
-    price = double.tryParse(json['price']);
-    regularPrice = double.tryParse(json['regular_price']);
-    salePrice = double.tryParse(json['sale_price']);
+    price = double.tryParse(json['price'].toString());
+    regularPrice = double.tryParse(json['regular_price'].toString());
+    salePrice = double.tryParse(json['sale_price'].toString());
     dateOnSaleFrom = null;
     dateOnSaleFromGmt = null;
     dateOnSaleTo = null;

@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universe_store/app/models/product.dart';
 import 'package:universe_store/app/models/sign_up.dart';
 import 'package:universe_store/app/modules/global_store.dart';
