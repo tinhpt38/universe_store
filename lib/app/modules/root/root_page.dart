@@ -26,7 +26,7 @@ class _RootPageState extends State<RootPage> {
     const CartPage(),
     const AccountPage()
   ];
-  int currentIndex = 2;
+  int currentIndex = 0;
   List<TabItem> tabItems = List.of([
     TabItem(Icons.home, "Home", Colors.blue,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),

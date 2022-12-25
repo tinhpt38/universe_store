@@ -17,6 +17,8 @@ class AppModule extends Module {
     Bind.singleton((i) => GlobalStore()),
   ];
 
+/// route || routes -> rút 
+/// router  -> râu tơ
   @override
   final List<ModularRoute> routes = [
     ChildRoute(Modular.initialRoute, child: (_, __) => const SignInPage()),
@@ -28,3 +30,11 @@ class AppModule extends Module {
             )),
   ];
 }
+/// Project Architecture  || Kiến trúc project
+///  values// định nghĩa các biến dùng lại, các biến chung
+/// utils // định nghĩa các hàm hỗ trợ 
+/// services // các dịch vụ ví dự như goi api ... 
+/// compoents // nơi chứa các giao diện dùng lại
+/// core // nơi định nghĩa các thành phần quan trọng, cốt lõi trong dự án 
+/// models // nơi định nghĩa các lớp dữ liệu trong project
+/// modules // nơi định nghĩa, xây dựng các thành phần tương tác người dùng
