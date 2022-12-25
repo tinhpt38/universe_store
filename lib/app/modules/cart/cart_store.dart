@@ -6,13 +6,13 @@ import 'package:universe_store/app/modules/global_store.dart';
 
 class CartStore extends NotifierStore<Exception, List<Cart>> {
   CartStore() : super([]);
-
+  List<Cart> carts = [];
   final GlobalStore _globalStore = Modular.get<GlobalStore>();
   Future gets() async {
     setLoading(true);
     update(_globalStore.carts);
     setLoading(false);
-    // return {};
+    return {};
   }
 
   removeCart(int pid) {
@@ -20,19 +20,23 @@ class CartStore extends NotifierStore<Exception, List<Cart>> {
     _globalStore.removeCart(pid);
     update(_globalStore.carts);
     setLoading(false);
-    // return {};
+    return {};
   }
 
   incrementQty(int pid) {
+    setLoading(true);
     _globalStore.incrementQty(pid, 1);
     update(_globalStore.carts);
+    setLoading(false);
     return {};
   }
 
   decrementQty(int pid) {
+    setLoading(true);
     _globalStore.decrementQty(pid, 1);
     update(_globalStore.carts);
-    // return {};
+    setLoading(false);
+    return {};
   }
 
   calculateSubTotal() {

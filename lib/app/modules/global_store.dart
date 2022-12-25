@@ -25,12 +25,18 @@ abstract class _GlobalStore with Store {
   @observable
   Customer? currentCustomer;
 
+  late SharedPreferences prefs;
+
   @action
   gets() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     String stringUser = prefs.getString("currentUser")!;
     currentUser = WPUser.fromJson(json.decode(stringUser));
     currentCustomer = await WooService().retrieveCustomer(currentUser!.id);
+    String? rawVals = prefs.getString("carts");
+    if (rawVals != null) {
+      carts = decodeCart(rawVals);
+    }
   }
 
   @action
@@ -50,6 +56,19 @@ abstract class _GlobalStore with Store {
 
       carts.add(cart);
     }
+    prefs.setString("carts", encodeCart());
+  }
+
+  String encodeCart() {
+    List<Map<String, dynamic>> values =
+        carts.map((element) => element.toJson()).toList();
+    return json.encode(values);
+  }
+
+  ObservableList<Cart> decodeCart(String rawVals) {
+    List<dynamic> values = json.decode(rawVals);
+    List<Cart> tcarts = values.map((e) => Cart.fromJson(e)).toList();
+    return ObservableList<Cart>.of(tcarts);
   }
 
   @action
@@ -60,6 +79,7 @@ abstract class _GlobalStore with Store {
     if (cartIndex > -1) {
       carts[cartIndex].quantity += qtyAdd;
     } else {}
+    prefs.setString("carts", encodeCart());
   }
 
   @action
@@ -67,9 +87,10 @@ abstract class _GlobalStore with Store {
     int cartIndex = carts.indexWhere((element) {
       return pId == element.pId;
     });
-    if (cartIndex > -1) {
+    if (cartIndex > -1 && carts[cartIndex].quantity > 1) {
       carts[cartIndex].quantity -= qtyDe;
     } else {}
+    prefs.setString("carts", encodeCart());
   }
 
   @action
@@ -78,5 +99,6 @@ abstract class _GlobalStore with Store {
       return pId == element.pId;
     });
     carts.removeAt(cartIndex);
+    prefs.setString("carts", encodeCart());
   }
 }

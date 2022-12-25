@@ -44,16 +44,22 @@ class _ProductsPageState extends State<ProductsPage> {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 200,
-                        childAspectRatio: 3 / 4,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 3 / 4,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16),
                     itemCount: state.products.length,
                     itemBuilder: (BuildContext ctx, index) {
-                      return ProductItem(product: state.products[index], onClick: (){
-                        Modular.to.pushNamed("/detail", arguments: state.products[index]);
-                      });
+                      return ProductItem(
+                          product: state.products[index],
+                          onClick: () {
+                            Modular.to.pushNamed(
+                              "/detail",
+                              arguments: state.products[index],
+                            );
+                          });
                     }),
               );
             },

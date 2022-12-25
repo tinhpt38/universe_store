@@ -11,6 +11,7 @@ class SignupStore extends StreamStore<Exception, SignupState> {
   SignupStore() : super(SignupInitState());
 
   final WooService _wooService = WooService();
+  
   Future signUp() async {
     setLoading(true);
     SignUp signup = SignUp(
